@@ -1,0 +1,25 @@
+{
+  "name": "sistema-tecnico",
+  "version": "1.0.0",
+  "description": "Sistema de gerenciamento para técnicos de TI",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "crm",
+    "tickets",
+    "agendamentos"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.2",
+    "sqlite3": "^5.1.6",
+    "uuid": "^9.0.0",
+    "dotenv": "^16.0.3"
+  }
+}
