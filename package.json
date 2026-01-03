@@ -1,7 +1,7 @@
 {
   "name": "sistema-tecnico",
-  "version": "1.0.0",
-  "description": "Sistema de gerenciamento para técnicos de TI",
+  "version": "2.0.0",
+  "description": "Sistema profissional de gerenciamento para técnicos de TI",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -10,7 +10,8 @@
   "keywords": [
     "crm",
     "tickets",
-    "agendamentos"
+    "agendamentos",
+    "tecnico"
   ],
   "author": "",
   "license": "ISC",
@@ -20,6 +21,8 @@
     "body-parser": "^1.20.2",
     "sqlite3": "^5.1.6",
     "uuid": "^9.0.0",
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.1.2"
   }
 }

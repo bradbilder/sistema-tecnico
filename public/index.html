@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Gerenciamento - Técnico</title>
+    <title>Sistema Técnico Pro - Gerenciamento Profissional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -11,62 +12,251 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --warning: #f59e0b;
+            --light: #f3f4f6;
+            --dark: #1f2937;
+            --border: #e5e7eb;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 10px;
+            background: var(--light);
+            color: var(--dark);
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
+        /* ===== LOGIN ===== */
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .login-box {
             background: white;
+            padding: 50px;
             border-radius: 15px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
+            width: 100%;
+            max-width: 400px;
         }
 
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
+        .login-box h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: var(--primary);
+            font-size: 28px;
+        }
+
+        .login-box p {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .login-form {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
+            flex-direction: column;
+            gap: 15px;
         }
 
-        header h1 {
-            font-size: 24px;
-        }
-
-        nav {
+        .form-group {
             display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+            flex-direction: column;
         }
 
-        nav button {
-            padding: 10px 20px;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: 2px solid white;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
+        .form-group label {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 14px;
+        }
+
+        .form-group input {
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
             transition: all 0.3s;
         }
 
-        nav button:hover, nav button.active {
-            background: white;
-            color: #667eea;
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
-        .content {
-            padding: 30px 20px;
-            min-height: calc(100vh - 150px);
+        .login-btn {
+            padding: 12px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .toggle-form {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .toggle-form button {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .alert.sucesso {
+            display: block;
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .alert.erro {
+            display: block;
+            background: #fee2e2;
+            color: #7f1d1d;
+            border: 1px solid #fecaca;
+        }
+
+        /* ===== MAIN APP ===== */
+        .app-container {
+            display: none;
+            min-height: 100vh;
+            background: var(--light);
+        }
+
+        .app-container.ativo {
+            display: flex;
+        }
+
+        header {
+            background: white;
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .user-email {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .logout-btn {
+            padding: 8px 16px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #b91c1c;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 20px;
+            overflow-y: auto;
+            max-height: calc(100vh - 80px);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .nav-item:hover {
+            background: var(--light);
+            color: var(--primary);
+        }
+
+        .nav-item.ativo {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            max-height: calc(100vh - 80px);
         }
 
         .section {
@@ -79,11 +269,19 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .dashboard-grid {
+        h1 {
+            margin-bottom: 30px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .grid-2 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
@@ -91,49 +289,71 @@
         }
 
         .card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: white;
             padding: 25px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s;
         }
 
-        .card h3 {
-            font-size: 14px;
+        .card:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #6b7280;
             margin-bottom: 10px;
-            opacity: 0.9;
+            font-weight: 600;
         }
 
-        .card .numero {
-            font-size: 36px;
-            font-weight: bold;
+        .card-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
         }
 
-        .form-group {
-            margin-bottom: 15px;
-            display: flex;
-            flex-direction: column;
+        .card-subtitle {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 8px;
         }
 
-        label {
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #333;
+        .form-container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-size: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
         }
 
         input, select, textarea {
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
             font-size: 14px;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
         }
 
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
         textarea {
@@ -141,48 +361,40 @@
             min-height: 100px;
         }
 
-        .form-container {
-            background: #f9f9f9;
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            border-left: 4px solid #667eea;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 15px;
-        }
-
         button {
-            padding: 12px 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
             font-size: 14px;
             transition: all 0.3s;
         }
 
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
         }
 
         button.danger {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, var(--danger), #991b1b);
         }
 
         button.success {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(135deg, var(--success), #15803d);
+        }
+
+        button.warning {
+            background: linear-gradient(135deg, var(--warning), #d97706);
         }
 
         .table-container {
-            overflow-x: auto;
-            margin-top: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
         table {
@@ -191,20 +403,21 @@
         }
 
         th {
-            background: #667eea;
-            color: white;
+            background: var(--light);
             padding: 15px;
             text-align: left;
-            font-weight: bold;
+            font-weight: 600;
+            color: var(--dark);
+            border-bottom: 2px solid var(--border);
         }
 
         td {
             padding: 15px;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid var(--border);
         }
 
         tr:hover {
-            background: #f9f9f9;
+            background: var(--light);
         }
 
         .badge {
@@ -212,52 +425,47 @@
             padding: 5px 12px;
             border-radius: 20px;
             font-size: 12px;
-            font-weight: bold;
+            font-weight: 600;
         }
 
         .badge.aberto {
-            background: #ffd700;
-            color: #333;
+            background: #fef3c7;
+            color: #92400e;
         }
 
         .badge.fechado {
-            background: #90ee90;
-            color: #333;
+            background: #dcfce7;
+            color: #166534;
         }
 
         .badge.alta {
-            background: #ff6b6b;
-            color: white;
+            background: #fee2e2;
+            color: #991b1b;
         }
 
         .badge.media {
-            background: #ffa500;
-            color: white;
+            background: #fed7aa;
+            color: #9a3412;
         }
 
         .badge.baixa {
-            background: #4caf50;
-            color: white;
-        }
-
-        .badge.agendado {
-            background: #87ceeb;
-            color: #333;
-        }
-
-        .badge.cancelado {
-            background: #ccc;
-            color: #333;
+            background: #d1fae5;
+            color: #065f46;
         }
 
         .badge.pago {
-            background: #90ee90;
-            color: #333;
+            background: #dcfce7;
+            color: #166534;
         }
 
         .badge.pendente {
-            background: #ff9800;
-            color: white;
+            background: #fed7aa;
+            color: #9a3412;
+        }
+
+        .badge.agendado {
+            background: #dbeafe;
+            color: #0c4a6e;
         }
 
         .action-buttons {
@@ -266,138 +474,38 @@
             flex-wrap: wrap;
         }
 
-        .btn-small {
+        .btn-sm {
             padding: 6px 12px;
             font-size: 12px;
-            border-radius: 3px;
+            border-radius: 6px;
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #9ca3af;
         }
 
-        .modal.aberto {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 600px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .empty-state i {
+            font-size: 48px;
             margin-bottom: 20px;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 15px;
-        }
-
-        .modal-header h2 {
-            margin: 0;
-        }
-
-        .fechar {
-            font-size: 28px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: #999;
-        }
-
-        .fechar:hover {
-            color: #333;
-        }
-
-        .alerta {
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .alerta.sucesso {
-            display: block;
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .alerta.erro {
-            display: block;
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .stat-box {
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
-        }
-
-        .stat-box h4 {
-            color: #666;
-            margin-bottom: 10px;
-            font-size: 12px;
-            text-transform: uppercase;
-        }
-
-        .stat-box .valor {
-            font-size: 28px;
-            font-weight: bold;
-            color: #667eea;
+            color: #d1d5db;
         }
 
         @media (max-width: 768px) {
-            header {
-                flex-direction: column;
+            .sidebar {
+                display: none;
             }
 
-            header h1 {
-                font-size: 20px;
+            .main-content {
+                padding: 20px;
             }
 
-            nav {
-                width: 100%;
-                justify-content: space-between;
-            }
-
-            nav button {
-                flex: 1;
-                padding: 8px 12px;
-                font-size: 12px;
-            }
-
-            .form-grid {
+            .grid-2 {
                 grid-template-columns: 1fr;
             }
 
-            .dashboard-grid {
+            .form-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -409,1049 +517,1295 @@
                 padding: 10px 5px;
             }
 
-            .action-buttons {
+            header {
                 flex-direction: column;
-            }
-
-            .btn-small {
-                width: 100%;
+                gap: 15px;
             }
         }
 
-        .filtro-container {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+        .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
-        .chart-container {
+        .stat {
             background: white;
             padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border: 1px solid #ddd;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--primary);
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🔧 SISTEMA DE GERENCIAMENTO TÉCNICO</h1>
-            <nav>
-                <button class="nav-btn ativo" data-secao="dashboard">📊 Dashboard</button>
-                <button class="nav-btn" data-secao="clientes">👥 Clientes</button>
-                <button class="nav-btn" data-secao="chamados">🎫 Chamados</button>
-                <button class="nav-btn" data-secao="agendamentos">📅 Agendamentos</button>
-                <button class="nav-btn" data-secao="servicos">💼 Serviços</button>
-                <button class="nav-btn" data-secao="pagamentos">💳 Pagamentos</button>
-                <button class="nav-btn" data-secao="manutencoes">🔧 Manutenções</button>
-                <button class="nav-btn" data-secao="estoque">📦 Estoque</button>
-            </nav>
-        </header>
+    <!-- ===== LOGIN ===== -->
+    <div id="loginContainer" class="login-container">
+        <div class="login-box">
+            <h1><i class="fas fa-tools"></i> SistemaTécnico</h1>
+            <p>Gerenciamento Profissional para Técnicos</p>
 
-        <div class="content">
-            <!-- ===== DASHBOARD ===== -->
-            <section id="dashboard" class="section ativo">
-                <h2>📊 Dashboard</h2>
-                <div class="dashboard-grid">
-                    <div class="card">
-                        <h3>👥 Total de Clientes</h3>
-                        <div class="numero" id="totalClientes">0</div>
+            <div id="alertaLogin" class="alert"></div>
+
+            <div id="formLogin">
+                <div class="login-form">
+                    <div class="form-group">
+                        <label>📧 Email</label>
+                        <input type="email" id="login_email" placeholder="admin@tecnico.com" required>
                     </div>
-                    <div class="card">
-                        <h3>🎫 Chamados Abertos</h3>
-                        <div class="numero" id="chamadosAbertos">0</div>
+                    <div class="form-group">
+                        <label>🔑 Senha</label>
+                        <input type="password" id="login_senha" placeholder="••••••••" required>
                     </div>
-                    <div class="card">
-                        <h3>📅 Agendamentos</h3>
-                        <div class="numero" id="agendamentosProximos">0</div>
+                    <button class="login-btn" onclick="fazerLogin()">Entrar</button>
+                </div>
+            </div>
+
+            <div class="toggle-form">
+                Não tem conta? <button onclick="toggleRegistro()">Criar conta</button>
+            </div>
+        </div>
+
+        <div class="login-box" id="formRegistro" style="display: none; margin-left: 20px;">
+            <h1><i class="fas fa-user-plus"></i> Novo Usuário</h1>
+            <p>Crie sua conta</p>
+
+            <div id="alertaRegistro" class="alert"></div>
+
+            <div class="login-form">
+                <div class="form-group">
+                    <label>👤 Nome</label>
+                    <input type="text" id="registro_nome" required>
+                </div>
+                <div class="form-group">
+                    <label>📧 Email</label>
+                    <input type="email" id="registro_email" required>
+                </div>
+                <div class="form-group">
+                    <label>🔑 Senha</label>
+                    <input type="password" id="registro_senha" required>
+                </div>
+                <button class="login-btn" onclick="fazerRegistro()">Criar Conta</button>
+            </div>
+
+            <div class="toggle-form">
+                Já tem conta? <button onclick="toggleRegistro()">Fazer login</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== APP ===== -->
+    <div id="appContainer" class="app-container">
+        <div class="sidebar">
+            <div style="margin-bottom: 30px; font-weight: 600; color: var(--primary); display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-tools"></i> MENU
+            </div>
+
+            <div class="nav-item ativo" onclick="trocarSecao('dashboard')">
+                <i class="fas fa-chart-line"></i> Dashboard
+            </div>
+            <div class="nav-item" onclick="trocarSecao('clientes')">
+                <i class="fas fa-users"></i> Clientes
+            </div>
+            <div class="nav-item" onclick="trocarSecao('chamados')">
+                <i class="fas fa-ticket-alt"></i> Chamados
+            </div>
+            <div class="nav-item" onclick="trocarSecao('agendamentos')">
+                <i class="fas fa-calendar-alt"></i> Agendamentos
+            </div>
+            <div class="nav-item" onclick="trocarSecao('servicos')">
+                <i class="fas fa-cogs"></i> Serviços
+            </div>
+            <div class="nav-item" onclick="trocarSecao('pagamentos')">
+                <i class="fas fa-credit-card"></i> Pagamentos
+            </div>
+            <div class="nav-item" onclick="trocarSecao('manutencoes')">
+                <i class="fas fa-wrench"></i> Manutenções
+            </div>
+            <div class="nav-item" onclick="trocarSecao('anotacoes')">
+                <i class="fas fa-sticky-note"></i> Anotações
+            </div>
+            <div class="nav-item" onclick="trocarSecao('estoque')">
+                <i class="fas fa-boxes"></i> Estoque
+            </div>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: column;">
+            <header>
+                <div class="header-left">
+                    <div class="logo">
+                        <i class="fas fa-tools"></i> SistemaTécnico Pro
                     </div>
-                    <div class="card">
-                        <h3>💰 Pendente</h3>
-                        <div class="numero" id="pagamentosPendentes">R$ 0</div>
+                </div>
+                <div class="user-info">
+                    <div>
+                        <div class="user-name" id="nomeUsuario">Usuário</div>
+                        <div class="user-email" id="emailUsuario">email@teste.com</div>
                     </div>
-                    <div class="card">
-                        <h3>💵 Receita</h3>
-                        <div class="numero" id="receitaTotal">R$ 0</div>
+                    <button class="logout-btn" onclick="fazerLogout()">
+                        <i class="fas fa-sign-out-alt"></i> Sair
+                    </button>
+                </div>
+            </header>
+
+            <div class="main-content">
+                <!-- ===== DASHBOARD ===== -->
+                <section id="dashboard" class="section ativo">
+                    <h1><i class="fas fa-chart-line"></i> Dashboard</h1>
+
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="stat-label">👥 Clientes</div>
+                            <div class="stat-value" id="totalClientes">0</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">🎫 Chamados Abertos</div>
+                            <div class="stat-value" id="chamadosAbertos">0</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">📅 Agendamentos</div>
+                            <div class="stat-value" id="agendamentosProximos">0</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">💰 Pagamentos Pendentes</div>
+                            <div class="stat-value" id="pagamentosPendentes">R$ 0</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">💵 Receita Total</div>
+                            <div class="stat-value" id="receitaTotal">R$ 0</div>
+                        </div>
                     </div>
-                </div>
+                </section>
 
-                <h3 style="margin-top: 30px;">📈 Resumo Rápido</h3>
-                <div class="stats">
-                    <div class="stat-box">
-                        <h4>Clientes Ativos</h4>
-                        <div class="valor" id="stat-clientes">0</div>
+                <!-- ===== CLIENTES ===== -->
+                <section id="clientes" class="section">
+                    <h1><i class="fas fa-users"></i> Clientes</h1>
+
+                    <div class="form-container">
+                        <h2>Adicionar Cliente</h2>
+                        <form onsubmit="adicionarCliente(event)">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Nome Completo *</label>
+                                    <input type="text" id="cliente_nome" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" id="cliente_email">
+                                </div>
+                                <div class="form-group">
+                                    <label>Telefone</label>
+                                    <input type="tel" id="cliente_telefone" placeholder="(11) 9999-9999">
+                                </div>
+                                <div class="form-group">
+                                    <label>Empresa</label>
+                                    <input type="text" id="cliente_empresa">
+                                </div>
+                                <div class="form-group">
+                                    <label>CNPJ/CPF</label>
+                                    <input type="text" id="cliente_cnpj">
+                                </div>
+                                <div class="form-group">
+                                    <label>Endereço</label>
+                                    <input type="text" id="cliente_endereco">
+                                </div>
+                            </div>
+                            <button type="submit" style="margin-top: 15px;">
+                                <i class="fas fa-plus"></i> Adicionar Cliente
+                            </button>
+                        </form>
                     </div>
-                    <div class="stat-box">
-                        <h4>Chamados Hoje</h4>
-                        <div class="valor" id="stat-chamados">0</div>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                    <th>Telefone</th>
+                                    <th>Empresa</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaClientes"></tbody>
+                        </table>
                     </div>
-                    <div class="stat-box">
-                        <h4>Manutenções Programadas</h4>
-                        <div class="valor" id="stat-manutencoes">0</div>
+                </section>
+
+                <!-- ===== CHAMADOS ===== -->
+                <section id="chamados" class="section">
+                    <h1><i class="fas fa-ticket-alt"></i> Chamados/Tickets</h1>
+
+                    <div class="form-container">
+                        <h2>Novo Chamado</h2>
+                        <form onsubmit="adicionarChamado(event)">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Cliente *</label>
+                                    <select id="chamado_cliente" required>
+                                        <option value="">Selecione...</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Título *</label>
+                                    <input type="text" id="chamado_titulo" placeholder="ex: Instalação de Windows" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Categoria</label>
+                                    <select id="chamado_categoria">
+                                        <option value="">Selecione...</option>
+                                        <option value="Instalação">Instalação</option>
+                                        <option value="Manutenção">Manutenção</option>
+                                        <option value="Reparo">Reparo</option>
+                                        <option value="Suporte">Suporte</option>
+                                        <option value="Atualização">Atualização</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Prioridade</label>
+                                    <select id="chamado_prioridade">
+                                        <option value="baixa">Baixa</option>
+                                        <option value="média" selected>Média</option>
+                                        <option value="alta">Alta</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Data Prazo</label>
+                                    <input type="date" id="chamado_prazo">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Descrição</label>
+                                <textarea id="chamado_descricao" placeholder="Descreva o problema..."></textarea>
+                            </div>
+                            <button type="submit" style="margin-top: 15px;">
+                                <i class="fas fa-plus"></i> Abrir Chamado
+                            </button>
+                        </form>
                     </div>
-                </div>
-            </section>
 
-            <!-- ===== CLIENTES ===== -->
-            <section id="clientes" class="section">
-                <h2>👥 Gerenciar Clientes</h2>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Cliente</th>
+                                    <th>Título</th>
+                                    <th>Categoria</th>
+                                    <th>Prioridade</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaChamados"></tbody>
+                        </table>
+                    </div>
+                </section>
 
-                <div class="form-container">
-                    <h3>Novo Cliente</h3>
-                    <form id="formCliente">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Nome *</label>
-                                <input type="text" id="cliente_nome" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" id="cliente_email">
-                            </div>
-                            <div class="form-group">
-                                <label>Telefone</label>
-                                <input type="tel" id="cliente_telefone">
-                            </div>
-                            <div class="form-group">
-                                <label>Empresa</label>
-                                <input type="text" id="cliente_empresa">
-                            </div>
-                            <div class="form-group">
-                                <label>Endereço</label>
-                                <input type="text" id="cliente_endereco">
-                            </div>
-                        </div>
-                        <button type="submit">➕ Adicionar Cliente</button>
-                    </form>
-                </div>
+                <!-- ===== AGENDAMENTOS ===== -->
+                <section id="agendamentos" class="section">
+                    <h1><i class="fas fa-calendar-alt"></i> Agendamentos</h1>
 
-                <div id="alertaCliente" class="alerta"></div>
-
-                <h3>Clientes Cadastrados</h3>
-                <div class="table-container">
-                    <table id="tabelaClientes">
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Email</th>
-                                <th>Telefone</th>
-                                <th>Empresa</th>
-                                <th>Status</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- ===== CHAMADOS ===== -->
-            <section id="chamados" class="section">
-                <h2>🎫 Gerenciar Chamados</h2>
-
-                <div class="form-container">
-                    <h3>Novo Chamado</h3>
-                    <form id="formChamado">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Cliente *</label>
-                                <select id="chamado_cliente" required>
-                                    <option value="">Selecione...</option>
-                                </select>
+                    <div class="form-container">
+                        <h2>Novo Agendamento</h2>
+                        <form onsubmit="adicionarAgendamento(event)">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Cliente *</label>
+                                    <select id="agenda_cliente" required>
+                                        <option value="">Selecione...</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Serviço</label>
+                                    <select id="agenda_servico">
+                                        <option value="">Selecione...</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Data *</label>
+                                    <input type="date" id="agenda_data" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Hora *</label>
+                                    <input type="time" id="agenda_hora" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Local</label>
+                                    <input type="text" id="agenda_local" placeholder="ex: Escritório, Loja...">
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label>Título *</label>
-                                <input type="text" id="chamado_titulo" required>
+                                <label>Notas</label>
+                                <textarea id="agenda_notas"></textarea>
                             </div>
-                            <div class="form-group">
-                                <label>Prioridade</label>
-                                <select id="chamado_prioridade">
-                                    <option value="baixa">Baixa</option>
-                                    <option value="média" selected>Média</option>
-                                    <option value="alta">Alta</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Descrição</label>
-                            <textarea id="chamado_descricao"></textarea>
-                        </div>
-                        <button type="submit">🎫 Abrir Chamado</button>
-                    </form>
-                </div>
+                            <button type="submit" style="margin-top: 15px;">
+                                <i class="fas fa-plus"></i> Agendar
+                            </button>
+                        </form>
+                    </div>
 
-                <div id="alertaChamado" class="alerta"></div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>Serviço</th>
+                                    <th>Data</th>
+                                    <th>Hora</th>
+                                    <th>Local</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaAgendamentos"></tbody>
+                        </table>
+                    </div>
+                </section>
 
-                <h3>Chamados Ativos</h3>
-                <div class="table-container">
-                    <table id="tabelaChamados">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Cliente</th>
-                                <th>Título</th>
-                                <th>Prioridade</th>
-                                <th>Status</th>
-                                <th>Abertura</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </section>
+                <!-- ===== SERVIÇOS ===== -->
+                <section id="servicos" class="section">
+                    <h1><i class="fas fa-cogs"></i> Serviços</h1>
 
-            <!-- ===== AGENDAMENTOS ===== -->
-            <section id="agendamentos" class="section">
-                <h2>📅 Gerenciar Agendamentos</h2>
+                    <div class="form-container">
+                        <h2>Novo Serviço</h2>
+                        <form onsubmit="adicionarServico(event)">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Nome *</label>
+                                    <input type="text" id="servico_nome" placeholder="ex: Instalação de Windows" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Categoria</label>
+                                    <input type="text" id="servico_categoria" placeholder="ex: Instalação">
+                                </div>
+                                <div class="form-group">
+                                    <label>Preço (R$)</label>
+                                    <input type="number" id="servico_preco" step="0.01">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tempo Médio (minutos)</label>
+                                    <input type="number" id="servico_tempo">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Descrição</label>
+                                <textarea id="servico_descricao"></textarea>
+                            </div>
+                            <button type="submit" style="margin-top: 15px;">
+                                <i class="fas fa-plus"></i> Adicionar Serviço
+                            </button>
+                        </form>
+                    </div>
 
-                <div class="form-container">
-                    <h3>Novo Agendamento</h3>
-                    <form id="formAgendamento">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Cliente *</label>
-                                <select id="agenda_cliente" required>
-                                    <option value="">Selecione...</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Serviço</label>
-                                <select id="agenda_servico">
-                                    <option value="">Selecione...</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Data *</label>
-                                <input type="date" id="agenda_data" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Hora *</label>
-                                <input type="time" id="agenda_hora" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Notas</label>
-                            <textarea id="agenda_notas"></textarea>
-                        </div>
-                        <button type="submit">📅 Agendar</button>
-                    </form>
-                </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Categoria</th>
+                                    <th>Preço</th>
+                                    <th>Tempo Médio</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaServicos"></tbody>
+                        </table>
+                    </div>
+                </section>
 
-                <div id="alertaAgenda" class="alerta"></div>
+                <!-- ===== PAGAMENTOS ===== -->
+                <section id="pagamentos" class="section">
+                    <h1><i class="fas fa-credit-card"></i> Pagamentos</h1>
 
-                <h3>Próximos Agendamentos</h3>
-                <div class="table-container">
-                    <table id="tabelaAgendamentos">
-                        <thead>
-                            <tr>
-                                <th>Cliente</th>
-                                <th>Serviço</th>
-                                <th>Data</th>
-                                <th>Hora</th>
-                                <th>Status</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </section>
+                    <div class="form-container">
+                        <h2>Registrar Pagamento</h2>
+                        <form onsubmit="adicionarPagamento(event)">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Cliente *</label>
+                                    <select id="pagto_cliente" required>
+                                        <option value="">Selecione...</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Valor (R$) *</label>
+                                    <input type="number" id="pagto_valor" step="0.01" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Método</label>
+                                    <select id="pagto_metodo">
+                                        <option value="dinheiro">Dinheiro</option>
+                                        <option value="cartao">Cartão</option>
+                                        <option value="transferencia">Transferência</option>
+                                        <option value="pix">PIX</option>
+                                        <option value="boleto">Boleto</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Data Vencimento</label>
+                                    <input type="date" id="pagto_vencimento">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Descrição</label>
+                                <textarea id="pagto_descricao"></textarea>
+                            </div>
+                            <button type="submit" style="margin-top: 15px;">
+                                <i class="fas fa-plus"></i> Registrar Pagamento
+                            </button>
+                        </form>
+                    </div>
 
-            <!-- ===== SERVIÇOS ===== -->
-            <section id="servicos" class="section">
-                <h2>💼 Gerenciar Serviços</h2>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>Valor</th>
+                                    <th>Método</th>
+                                    <th>Vencimento</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaPagamentos"></tbody>
+                        </table>
+                    </div>
+                </section>
 
-                <div class="form-container">
-                    <h3>Novo Serviço</h3>
-                    <form id="formServico">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Nome *</label>
-                                <input type="text" id="servico_nome" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Categoria</label>
-                                <input type="text" id="servico_categoria" placeholder="ex: Manutenção">
-                            </div>
-                            <div class="form-group">
-                                <label>Preço (R$)</label>
-                                <input type="number" id="servico_preco" step="0.01">
-                            </div>
-                            <div class="form-group">
-                                <label>Tempo Médio (minutos)</label>
-                                <input type="number" id="servico_tempo">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Descrição</label>
-                            <textarea id="servico_descricao"></textarea>
-                        </div>
-                        <button type="submit">➕ Adicionar Serviço</button>
-                    </form>
-                </div>
+                <!-- ===== MANUTENÇÕES ===== -->
+                <section id="manutencoes" class="section">
+                    <h1><i class="fas fa-wrench"></i> Manutenções</h1>
 
-                <div id="alertaServico" class="alerta"></div>
+                    <div class="form-container">
+                        <h2>Agendar Manutenção</h2>
+                        <form onsubmit="adicionarManutencao(event)">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Cliente *</label>
+                                    <select id="manut_cliente" required>
+                                        <option value="">Selecione...</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tipo</label>
+                                    <select id="manut_tipo">
+                                        <option value="preventiva">Preventiva</option>
+                                        <option value="corretiva">Corretiva</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Data *</label>
+                                    <input type="date" id="manut_data" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Frequência</label>
+                                    <select id="manut_frequencia">
+                                        <option value="mensal">Mensal</option>
+                                        <option value="trimestral">Trimestral</option>
+                                        <option value="semestral">Semestral</option>
+                                        <option value="anual">Anual</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Checklist</label>
+                                <textarea id="manut_checklist" placeholder="Verificar temperatura, Limpeza, Backup..."></textarea>
+                            </div>
+                            <button type="submit" style="margin-top: 15px;">
+                                <i class="fas fa-plus"></i> Agendar Manutenção
+                            </button>
+                        </form>
+                    </div>
 
-                <h3>Serviços Cadastrados</h3>
-                <div class="table-container">
-                    <table id="tabelaServicos">
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Categoria</th>
-                                <th>Preço</th>
-                                <th>Tempo Médio</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </section>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>Tipo</th>
+                                    <th>Próxima</th>
+                                    <th>Frequência</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaManutencoes"></tbody>
+                        </table>
+                    </div>
+                </section>
 
-            <!-- ===== PAGAMENTOS ===== -->
-            <section id="pagamentos" class="section">
-                <h2>💳 Gerenciar Pagamentos</h2>
+                <!-- ===== ANOTAÇÕES ===== -->
+                <section id="anotacoes" class="section">
+                    <h1><i class="fas fa-sticky-note"></i> Anotações Rápidas</h1>
 
-                <div class="form-container">
-                    <h3>Registrar Pagamento</h3>
-                    <form id="formPagamento">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Cliente *</label>
-                                <select id="pagto_cliente" required>
-                                    <option value="">Selecione...</option>
-                                </select>
+                    <div class="form-container">
+                        <h2>Nova Anotação</h2>
+                        <form onsubmit="adicionarAnotacao(event)">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Título *</label>
+                                    <input type="text" id="anotacao_titulo" placeholder="ex: Lembrete importante" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Prioridade</label>
+                                    <select id="anotacao_prioridade">
+                                        <option value="baixa">Baixa</option>
+                                        <option value="normal" selected>Normal</option>
+                                        <option value="alta">Alta</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label>Valor (R$) *</label>
-                                <input type="number" id="pagto_valor" step="0.01" required>
+                                <label>Conteúdo</label>
+                                <textarea id="anotacao_conteudo" placeholder="Escreva sua anotação..."></textarea>
                             </div>
-                            <div class="form-group">
-                                <label>Método</label>
-                                <select id="pagto_metodo">
-                                    <option value="dinheiro">Dinheiro</option>
-                                    <option value="cartao">Cartão</option>
-                                    <option value="transferencia">Transferência</option>
-                                    <option value="pix">PIX</option>
-                                    <option value="boleto">Boleto</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Status</label>
-                                <select id="pagto_status">
-                                    <option value="pendente">Pendente</option>
-                                    <option value="pago">Pago</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Descrição</label>
-                            <textarea id="pagto_descricao"></textarea>
-                        </div>
-                        <button type="submit">💳 Registrar Pagamento</button>
-                    </form>
-                </div>
+                            <button type="submit" style="margin-top: 15px;">
+                                <i class="fas fa-plus"></i> Criar Anotação
+                            </button>
+                        </form>
+                    </div>
 
-                <div id="alertaPagto" class="alerta"></div>
+                    <div id="listAnotacoes" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;">
+                        <!-- Anotações aparecem aqui -->
+                    </div>
+                </section>
 
-                <h3>Histórico de Pagamentos</h3>
-                <div class="table-container">
-                    <table id="tabelaPagamentos">
-                        <thead>
-                            <tr>
-                                <th>Cliente</th>
-                                <th>Valor</th>
-                                <th>Método</th>
-                                <th>Data</th>
-                                <th>Status</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </section>
+                <!-- ===== ESTOQUE ===== -->
+                <section id="estoque" class="section">
+                    <h1><i class="fas fa-boxes"></i> Estoque</h1>
 
-            <!-- ===== MANUTENÇÕES ===== -->
-            <section id="manutencoes" class="section">
-                <h2>🔧 Gerenciar Manutenções</h2>
+                    <div class="form-container">
+                        <h2>Adicionar ao Estoque</h2>
+                        <form onsubmit="adicionarEstoque(event)">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Nome do Item *</label>
+                                    <input type="text" id="estoque_nome" placeholder="ex: Cabo HDMI" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Categoria</label>
+                                    <input type="text" id="estoque_categoria" placeholder="ex: Cabos">
+                                </div>
+                                <div class="form-group">
+                                    <label>Quantidade *</label>
+                                    <input type="number" id="estoque_quantidade" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Preço Unitário (R$)</label>
+                                    <input type="number" id="estoque_preco" step="0.01">
+                                </div>
+                                <div class="form-group">
+                                    <label>Fornecedor</label>
+                                    <input type="text" id="estoque_fornecedor">
+                                </div>
+                                <div class="form-group">
+                                    <label>Nível Mínimo</label>
+                                    <input type="number" id="estoque_minimo" value="5">
+                                </div>
+                                <div class="form-group">
+                                    <label>Localização</label>
+                                    <input type="text" id="estoque_localizacao" placeholder="ex: Prateleira A1">
+                                </div>
+                            </div>
+                            <button type="submit" style="margin-top: 15px;">
+                                <i class="fas fa-plus"></i> Adicionar Item
+                            </button>
+                        </form>
+                    </div>
 
-                <div class="form-container">
-                    <h3>Agendar Manutenção</h3>
-                    <form id="formManutencao">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Cliente *</label>
-                                <select id="manut_cliente" required>
-                                    <option value="">Selecione...</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Tipo</label>
-                                <select id="manut_tipo">
-                                    <option value="preventiva">Preventiva</option>
-                                    <option value="corretiva">Corretiva</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Data *</label>
-                                <input type="date" id="manut_data" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Frequência</label>
-                                <select id="manut_frequencia">
-                                    <option value="mensal">Mensal</option>
-                                    <option value="trimestral">Trimestral</option>
-                                    <option value="semestral">Semestral</option>
-                                    <option value="anual">Anual</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Checklist (separados por vírgula)</label>
-                            <textarea id="manut_checklist" placeholder="Verificar temperatura, Limpeza, Backup..."></textarea>
-                        </div>
-                        <button type="submit">🔧 Agendar Manutenção</button>
-                    </form>
-                </div>
-
-                <div id="alertaManut" class="alerta"></div>
-
-                <h3>Manutenções Programadas</h3>
-                <div class="table-container">
-                    <table id="tabelaManutencoes">
-                        <thead>
-                            <tr>
-                                <th>Cliente</th>
-                                <th>Tipo</th>
-                                <th>Próxima Execução</th>
-                                <th>Frequência</th>
-                                <th>Status</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- ===== ESTOQUE ===== -->
-            <section id="estoque" class="section">
-                <h2>📦 Gerenciar Estoque</h2>
-
-                <div class="form-container">
-                    <h3>Adicionar ao Estoque</h3>
-                    <form id="formEstoque">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Nome do Item *</label>
-                                <input type="text" id="estoque_nome" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Categoria</label>
-                                <input type="text" id="estoque_categoria" placeholder="ex: Cabo, Monitor...">
-                            </div>
-                            <div class="form-group">
-                                <label>Quantidade *</label>
-                                <input type="number" id="estoque_quantidade" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Preço Unitário (R$)</label>
-                                <input type="number" id="estoque_preco" step="0.01">
-                            </div>
-                            <div class="form-group">
-                                <label>Fornecedor</label>
-                                <input type="text" id="estoque_fornecedor">
-                            </div>
-                            <div class="form-group">
-                                <label>Nível Mínimo</label>
-                                <input type="number" id="estoque_minimo">
-                            </div>
-                        </div>
-                        <button type="submit">📦 Adicionar Item</button>
-                    </form>
-                </div>
-
-                <div id="alertaEstoque" class="alerta"></div>
-
-                <h3>Itens em Estoque</h3>
-                <div class="table-container">
-                    <table id="tabelaEstoque">
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Categoria</th>
-                                <th>Quantidade</th>
-                                <th>Preço Unit.</th>
-                                <th>Fornecedor</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </section>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Categoria</th>
+                                    <th>Quantidade</th>
+                                    <th>Preço Unit.</th>
+                                    <th>Localização</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaEstoque"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
 
     <script>
         // ===== CONFIGURAÇÃO =====
-        const API_URL = 'https://sistema-tecnico-api.onrender.com/api'; // Mude para URL do servidor quando deployado
+        const API_URL = 'http://localhost:3000/api';
+        let usuarioAtual = null;
+        let token = null;
 
-        // ===== FUNÇÕES GERAIS =====
-        function mostrarAlerta(elementId, mensagem, tipo) {
-            const alerta = document.getElementById(elementId);
-            alerta.textContent = mensagem;
-            alerta.className = `alerta ${tipo}`;
-            setTimeout(() => alerta.className = 'alerta', 5000);
+        // ===== LOGIN/REGISTRO =====
+        function toggleRegistro() {
+            document.getElementById('formLogin').parentElement.style.display = 
+                document.getElementById('formLogin').parentElement.style.display === 'none' ? 'block' : 'none';
+            document.getElementById('formRegistro').style.display = 
+                document.getElementById('formRegistro').style.display === 'none' ? 'block' : 'none';
         }
 
+        async function fazerLogin() {
+            const email = document.getElementById('login_email').value;
+            const senha = document.getElementById('login_senha').value;
+
+            if (!email || !senha) {
+                mostrarAlertaLogin('Preencha todos os campos', 'erro');
+                return;
+            }
+
+            try {
+                const resp = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, senha })
+                });
+
+                const data = await resp.json();
+
+                if (data.sucesso) {
+                    token = data.token;
+                    usuarioAtual = data.usuario;
+                    localStorage.setItem('token', token);
+                    localStorage.setItem('usuario', JSON.stringify(usuarioAtual));
+                    
+                    mostrarApp();
+                    carregarDashboard();
+                } else {
+                    mostrarAlertaLogin(data.erro || 'Erro ao fazer login', 'erro');
+                }
+            } catch (err) {
+                mostrarAlertaLogin('Erro ao conectar: ' + err.message, 'erro');
+            }
+        }
+
+        async function fazerRegistro() {
+            const nome = document.getElementById('registro_nome').value;
+            const email = document.getElementById('registro_email').value;
+            const senha = document.getElementById('registro_senha').value;
+
+            if (!nome || !email || !senha) {
+                mostrarAlertaRegistro('Preencha todos os campos', 'erro');
+                return;
+            }
+
+            try {
+                const resp = await fetch(`${API_URL}/auth/registrar`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome, email, senha })
+                });
+
+                const data = await resp.json();
+
+                if (data.sucesso) {
+                    mostrarAlertaRegistro('Conta criada com sucesso! Faça login', 'sucesso');
+                    setTimeout(toggleRegistro, 2000);
+                } else {
+                    mostrarAlertaRegistro(data.erro || 'Erro ao registrar', 'erro');
+                }
+            } catch (err) {
+                mostrarAlertaRegistro('Erro: ' + err.message, 'erro');
+            }
+        }
+
+        function mostrarAlertaLogin(msg, tipo) {
+            const alerta = document.getElementById('alertaLogin');
+            alerta.textContent = msg;
+            alerta.className = `alert ${tipo}`;
+            setTimeout(() => alerta.className = 'alert', 5000);
+        }
+
+        function mostrarAlertaRegistro(msg, tipo) {
+            const alerta = document.getElementById('alertaRegistro');
+            alerta.textContent = msg;
+            alerta.className = `alert ${tipo}`;
+            setTimeout(() => alerta.className = 'alert', 5000);
+        }
+
+        function mostrarApp() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('appContainer').classList.add('ativo');
+            document.getElementById('nomeUsuario').textContent = usuarioAtual.nome;
+            document.getElementById('emailUsuario').textContent = usuarioAtual.email;
+        }
+
+        function fazerLogout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('usuario');
+            location.reload();
+        }
+
+        // ===== NAVEGAÇÃO =====
         function trocarSecao(secao) {
-            document.querySelectorAll('.section').forEach(el => el.classList.remove('ativo'));
-            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('ativo'));
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('ativo'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('ativo'));
             document.getElementById(secao).classList.add('ativo');
-            event.target.classList.add('ativo');
-            
-            // Carregar dados ao trocar
+            event.target.closest('.nav-item').classList.add('ativo');
+
             if (secao === 'clientes') carregarClientes();
             if (secao === 'chamados') carregarChamados();
             if (secao === 'agendamentos') carregarAgendamentos();
             if (secao === 'servicos') carregarServicos();
             if (secao === 'pagamentos') carregarPagamentos();
             if (secao === 'manutencoes') carregarManutencoes();
+            if (secao === 'anotacoes') carregarAnotacoes();
             if (secao === 'estoque') carregarEstoque();
         }
 
-        // ===== CARREGAMENTO DE DADOS =====
-        async function carregarDashboard() {
-            try {
-                const resp = await fetch(`${API_URL}/dashboard`);
-                const dados = await resp.json();
+        // ===== FUNÇÕES DE FETCH =====
+        async function fazerRequisicao(url, opcoes = {}) {
+            opcoes.headers = opcoes.headers || {};
+            opcoes.headers['Authorization'] = `Bearer ${token}`;
 
-                document.getElementById('totalClientes').textContent = dados.totalClientes;
-                document.getElementById('chamadosAbertos').textContent = dados.chamadosAbertos;
-                document.getElementById('agendamentosProximos').textContent = dados.agendamentosProximos;
-                document.getElementById('pagamentosPendentes').textContent = 'R$ ' + formatarMoeda(dados.pagamentosPendentes);
-                document.getElementById('receitaTotal').textContent = 'R$ ' + formatarMoeda(dados.receitaTotal);
-            } catch (err) {
-                console.error('Erro ao carregar dashboard:', err);
+            const resp = await fetch(`${API_URL}${url}`, opcoes);
+            return resp.json();
+        }
+
+        // ===== CLIENTES =====
+        async function adicionarCliente(e) {
+            e.preventDefault();
+
+            const dados = {
+                nome: document.getElementById('cliente_nome').value,
+                email: document.getElementById('cliente_email').value,
+                telefone: document.getElementById('cliente_telefone').value,
+                empresa: document.getElementById('cliente_empresa').value,
+                endereco: document.getElementById('cliente_endereco').value,
+                cnpj: document.getElementById('cliente_cnpj').value,
+                tipo_contato: 'email'
+            };
+
+            const result = await fazerRequisicao('/clientes', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+
+            if (result.sucesso) {
+                e.target.reset();
+                carregarClientes();
             }
         }
 
         async function carregarClientes() {
-            try {
-                const resp = await fetch(`${API_URL}/clientes`);
-                const clientes = await resp.json();
+            const result = await fazerRequisicao('/clientes');
+            const tbody = document.getElementById('tabelaClientes');
+            tbody.innerHTML = '';
 
-                const tbody = document.querySelector('#tabelaClientes tbody');
-                tbody.innerHTML = '';
+            result.forEach(c => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${c.nome}</td>
+                    <td>${c.email || '-'}</td>
+                    <td>${c.telefone || '-'}</td>
+                    <td>${c.empresa || '-'}</td>
+                    <td><span class="badge ${c.status}">${c.status}</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-sm success" onclick="alert('Editar ainda não implementado')">✏️</button>
+                            <button class="btn-sm danger" onclick="deletarCliente('${c.id}')">🗑️</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
 
-                clientes.forEach(c => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td>${c.nome}</td>
-                        <td>${c.email || '-'}</td>
-                        <td>${c.telefone || '-'}</td>
-                        <td>${c.empresa || '-'}</td>
-                        <td><span class="badge ${c.status}">${c.status}</span></td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn-small success" onclick="editarCliente('${c.id}')">✏️ Editar</button>
-                                <button class="btn-small danger" onclick="deletarCliente('${c.id}')">🗑️ Deletar</button>
-                            </div>
-                        </td>
-                    `;
-                    tbody.appendChild(tr);
-                });
+            // Atualizar selects
+            atualizarSelectClientes(result);
+        }
 
-                // Preencher select de clientes
-                const select = document.getElementById('chamado_cliente');
+        function atualizarSelectClientes(clientes) {
+            ['chamado_cliente', 'agenda_cliente', 'pagto_cliente', 'manut_cliente'].forEach(id => {
+                const select = document.getElementById(id);
                 select.innerHTML = '<option value="">Selecione...</option>';
                 clientes.forEach(c => {
-                    const option = document.createElement('option');
-                    option.value = c.id;
-                    option.textContent = c.nome;
-                    select.appendChild(option);
+                    const opt = document.createElement('option');
+                    opt.value = c.id;
+                    opt.textContent = c.nome;
+                    select.appendChild(opt);
                 });
+            });
+        }
 
-                // Select agendamentos
-                const selectAgenda = document.getElementById('agenda_cliente');
-                selectAgenda.innerHTML = '<option value="">Selecione...</option>';
-                clientes.forEach(c => {
-                    const option = document.createElement('option');
-                    option.value = c.id;
-                    option.textContent = c.nome;
-                    selectAgenda.appendChild(option);
-                });
+        async function deletarCliente(id) {
+            if (!confirm('Deletar este cliente?')) return;
+            const result = await fazerRequisicao(`/clientes/${id}`, { method: 'DELETE' });
+            if (result.sucesso) carregarClientes();
+        }
 
-                // Select pagamentos
-                const selectPagto = document.getElementById('pagto_cliente');
-                selectPagto.innerHTML = '<option value="">Selecione...</option>';
-                clientes.forEach(c => {
-                    const option = document.createElement('option');
-                    option.value = c.id;
-                    option.textContent = c.nome;
-                    selectPagto.appendChild(option);
-                });
+        // ===== CHAMADOS =====
+        async function adicionarChamado(e) {
+            e.preventDefault();
 
-                // Select manutenção
-                const selectManut = document.getElementById('manut_cliente');
-                selectManut.innerHTML = '<option value="">Selecione...</option>';
-                clientes.forEach(c => {
-                    const option = document.createElement('option');
-                    option.value = c.id;
-                    option.textContent = c.nome;
-                    selectManut.appendChild(option);
-                });
-            } catch (err) {
-                mostrarAlerta('alertaCliente', 'Erro ao carregar clientes', 'erro');
+            const dados = {
+                cliente_id: document.getElementById('chamado_cliente').value,
+                titulo: document.getElementById('chamado_titulo').value,
+                descricao: document.getElementById('chamado_descricao').value,
+                categoria: document.getElementById('chamado_categoria').value,
+                prioridade: document.getElementById('chamado_prioridade').value,
+                data_prazo: document.getElementById('chamado_prazo').value
+            };
+
+            const result = await fazerRequisicao('/chamados', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+
+            if (result.sucesso) {
+                e.target.reset();
+                carregarChamados();
             }
         }
 
         async function carregarChamados() {
-            try {
-                const resp = await fetch(`${API_URL}/chamados`);
-                const chamados = await resp.json();
+            const result = await fazerRequisicao('/chamados');
+            const tbody = document.getElementById('tabelaChamados');
+            tbody.innerHTML = '';
 
-                const tbody = document.querySelector('#tabelaChamados tbody');
-                tbody.innerHTML = '';
+            if (result.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 40px;">Nenhum chamado criado ainda</td></tr>';
+                return;
+            }
 
-                chamados.forEach(ch => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td>${ch.id.substring(0, 8)}</td>
-                        <td>${ch.cliente_nome}</td>
-                        <td>${ch.titulo}</td>
-                        <td><span class="badge ${ch.prioridade}">${ch.prioridade}</span></td>
-                        <td><span class="badge ${ch.status}">${ch.status}</span></td>
-                        <td>${formatarData(ch.data_abertura)}</td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn-small success" onclick="editarChamado('${ch.id}')">✏️ Editar</button>
-                            </div>
-                        </td>
-                    `;
-                    tbody.appendChild(tr);
-                });
-            } catch (err) {
-                mostrarAlerta('alertaChamado', 'Erro ao carregar chamados', 'erro');
+            result.forEach(ch => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><small>${ch.id.substring(0, 8)}</small></td>
+                    <td>${ch.cliente_nome}</td>
+                    <td>${ch.titulo}</td>
+                    <td>${ch.categoria || '-'}</td>
+                    <td><span class="badge ${ch.prioridade}">${ch.prioridade}</span></td>
+                    <td><span class="badge ${ch.status}">${ch.status}</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-sm warning" onclick="alert('Editar ainda não implementado')">✏️</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // ===== AGENDAMENTOS =====
+        async function adicionarAgendamento(e) {
+            e.preventDefault();
+
+            const dados = {
+                cliente_id: document.getElementById('agenda_cliente').value,
+                servico_id: document.getElementById('agenda_servico').value || null,
+                data_agendada: document.getElementById('agenda_data').value,
+                hora: document.getElementById('agenda_hora').value,
+                local: document.getElementById('agenda_local').value,
+                notas: document.getElementById('agenda_notas').value
+            };
+
+            const result = await fazerRequisicao('/agendamentos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+
+            if (result.sucesso) {
+                e.target.reset();
+                carregarAgendamentos();
             }
         }
 
         async function carregarAgendamentos() {
-            try {
-                const resp = await fetch(`${API_URL}/agendamentos`);
-                const agendamentos = await resp.json();
+            const result = await fazerRequisicao('/agendamentos');
+            const tbody = document.getElementById('tabelaAgendamentos');
+            tbody.innerHTML = '';
 
-                const tbody = document.querySelector('#tabelaAgendamentos tbody');
-                tbody.innerHTML = '';
+            if (result.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 40px;">Nenhum agendamento criado</td></tr>';
+                return;
+            }
 
-                agendamentos.forEach(a => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td>${a.cliente_nome}</td>
-                        <td>${a.servico_nome || '-'}</td>
-                        <td>${formatarData(a.data_agendada)}</td>
-                        <td>${a.hora}</td>
-                        <td><span class="badge ${a.status}">${a.status}</span></td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn-small success" onclick="editarAgendamento('${a.id}')">✏️ Editar</button>
-                            </div>
-                        </td>
-                    `;
-                    tbody.appendChild(tr);
-                });
-            } catch (err) {
-                mostrarAlerta('alertaAgenda', 'Erro ao carregar agendamentos', 'erro');
+            result.forEach(a => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${a.cliente_nome}</td>
+                    <td>${a.servico_nome || '-'}</td>
+                    <td>${formatarData(a.data_agendada)}</td>
+                    <td>${a.hora}</td>
+                    <td>${a.local || '-'}</td>
+                    <td><span class="badge ${a.status}">${a.status}</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-sm warning">✏️</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // ===== SERVIÇOS =====
+        async function adicionarServico(e) {
+            e.preventDefault();
+
+            const dados = {
+                nome: document.getElementById('servico_nome').value,
+                categoria: document.getElementById('servico_categoria').value,
+                preco: parseFloat(document.getElementById('servico_preco').value) || 0,
+                tempo_medio: parseInt(document.getElementById('servico_tempo').value) || 0,
+                descricao: document.getElementById('servico_descricao').value
+            };
+
+            const result = await fazerRequisicao('/servicos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+
+            if (result.sucesso) {
+                e.target.reset();
+                carregarServicos();
             }
         }
 
         async function carregarServicos() {
-            try {
-                const resp = await fetch(`${API_URL}/servicos`);
-                const servicos = await resp.json();
+            const result = await fazerRequisicao('/servicos');
+            const tbody = document.getElementById('tabelaServicos');
+            tbody.innerHTML = '';
 
-                const tbody = document.querySelector('#tabelaServicos tbody');
-                tbody.innerHTML = '';
+            if (result.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 40px;">Nenhum serviço cadastrado</td></tr>';
+                return;
+            }
 
-                servicos.forEach(s => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td>${s.nome}</td>
-                        <td>${s.categoria || '-'}</td>
-                        <td>R$ ${formatarMoeda(s.preco)}</td>
-                        <td>${s.tempo_medio} min</td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn-small danger" onclick="deletarServico('${s.id}')">🗑️ Deletar</button>
-                            </div>
-                        </td>
-                    `;
-                    tbody.appendChild(tr);
-                });
+            result.forEach(s => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${s.nome}</td>
+                    <td>${s.categoria || '-'}</td>
+                    <td>R$ ${formatarMoeda(s.preco)}</td>
+                    <td>${s.tempo_medio} min</td>
+                    <td>
+                        <button class="btn-sm danger" onclick="deletarServico('${s.id}')">🗑️</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
 
-                // Preencher select
-                const select = document.getElementById('agenda_servico');
-                select.innerHTML = '<option value="">Selecione...</option>';
-                servicos.forEach(s => {
-                    const option = document.createElement('option');
-                    option.value = s.id;
-                    option.textContent = s.nome;
-                    select.appendChild(option);
-                });
-            } catch (err) {
-                mostrarAlerta('alertaServico', 'Erro ao carregar serviços', 'erro');
+            // Atualizar select
+            const select = document.getElementById('agenda_servico');
+            select.innerHTML = '<option value="">Selecione...</option>';
+            result.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s.id;
+                opt.textContent = `${s.nome} (R$ ${formatarMoeda(s.preco)})`;
+                select.appendChild(opt);
+            });
+        }
+
+        async function deletarServico(id) {
+            if (!confirm('Deletar este serviço?')) return;
+            const result = await fazerRequisicao(`/servicos/${id}`, { method: 'DELETE' });
+            if (result.sucesso) carregarServicos();
+        }
+
+        // ===== PAGAMENTOS =====
+        async function adicionarPagamento(e) {
+            e.preventDefault();
+
+            const dados = {
+                cliente_id: document.getElementById('pagto_cliente').value,
+                valor: parseFloat(document.getElementById('pagto_valor').value),
+                metodo: document.getElementById('pagto_metodo').value,
+                data_vencimento: document.getElementById('pagto_vencimento').value,
+                descricao: document.getElementById('pagto_descricao').value
+            };
+
+            const result = await fazerRequisicao('/pagamentos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+
+            if (result.sucesso) {
+                e.target.reset();
+                carregarPagamentos();
+                carregarDashboard();
             }
         }
 
         async function carregarPagamentos() {
-            try {
-                const resp = await fetch(`${API_URL}/pagamentos`);
-                const pagamentos = await resp.json();
+            const result = await fazerRequisicao('/pagamentos');
+            const tbody = document.getElementById('tabelaPagamentos');
+            tbody.innerHTML = '';
 
-                const tbody = document.querySelector('#tabelaPagamentos tbody');
-                tbody.innerHTML = '';
+            if (result.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 40px;">Nenhum pagamento registrado</td></tr>';
+                return;
+            }
 
-                pagamentos.forEach(p => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td>${p.cliente_nome}</td>
-                        <td>R$ ${formatarMoeda(p.valor)}</td>
-                        <td>${p.metodo}</td>
-                        <td>${formatarData(p.data_pagamento)}</td>
-                        <td><span class="badge ${p.status}">${p.status}</span></td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn-small success" onclick="atualizarStatusPagamento('${p.id}')">✅ Marcar Pago</button>
-                            </div>
-                        </td>
-                    `;
-                    tbody.appendChild(tr);
-                });
-            } catch (err) {
-                mostrarAlerta('alertaPagto', 'Erro ao carregar pagamentos', 'erro');
+            result.forEach(p => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${p.cliente_nome}</td>
+                    <td>R$ ${formatarMoeda(p.valor)}</td>
+                    <td>${p.metodo}</td>
+                    <td>${p.data_vencimento ? formatarData(p.data_vencimento) : '-'}</td>
+                    <td><span class="badge ${p.status}">${p.status}</span></td>
+                    <td>
+                        ${p.status === 'pendente' ? 
+                            `<button class="btn-sm success" onclick="marcarPago('${p.id}')">✓ Marcar Pago</button>` : 
+                            '-'}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        async function marcarPago(id) {
+            const result = await fazerRequisicao(`/pagamentos/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status: 'pago' })
+            });
+            if (result.sucesso) {
+                carregarPagamentos();
+                carregarDashboard();
+            }
+        }
+
+        // ===== MANUTENÇÕES =====
+        async function adicionarManutencao(e) {
+            e.preventDefault();
+
+            const dados = {
+                cliente_id: document.getElementById('manut_cliente').value,
+                tipo: document.getElementById('manut_tipo').value,
+                data_agendada: document.getElementById('manut_data').value,
+                frequencia: document.getElementById('manut_frequencia').value,
+                checklist: document.getElementById('manut_checklist').value
+            };
+
+            const result = await fazerRequisicao('/manutencoes', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+
+            if (result.sucesso) {
+                e.target.reset();
+                carregarManutencoes();
             }
         }
 
         async function carregarManutencoes() {
-            try {
-                const resp = await fetch(`${API_URL}/manutencoes`);
-                const manutencoes = await resp.json();
+            const result = await fazerRequisicao('/manutencoes');
+            const tbody = document.getElementById('tabelaManutencoes');
+            tbody.innerHTML = '';
 
-                const tbody = document.querySelector('#tabelaManutencoes tbody');
-                tbody.innerHTML = '';
+            if (result.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 40px;">Nenhuma manutenção agendada</td></tr>';
+                return;
+            }
 
-                manutencoes.forEach(m => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td>${m.cliente_nome}</td>
-                        <td>${m.tipo}</td>
-                        <td>${formatarData(m.proxima_execucao)}</td>
-                        <td>${m.frequencia}</td>
-                        <td><span class="badge ${m.status}">${m.status}</span></td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn-small success" onclick="marcarExecutado('${m.id}')">✅ Executado</button>
-                            </div>
-                        </td>
-                    `;
-                    tbody.appendChild(tr);
-                });
-            } catch (err) {
-                mostrarAlerta('alertaManut', 'Erro ao carregar manutenções', 'erro');
+            result.forEach(m => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${m.cliente_nome}</td>
+                    <td>${m.tipo}</td>
+                    <td>${formatarData(m.proxima_execucao)}</td>
+                    <td>${m.frequencia}</td>
+                    <td><span class="badge ${m.status}">${m.status}</span></td>
+                    <td>
+                        <button class="btn-sm success" onclick="alert('Marcar executado ainda não implementado')">✓</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // ===== ANOTAÇÕES =====
+        async function adicionarAnotacao(e) {
+            e.preventDefault();
+
+            const dados = {
+                titulo: document.getElementById('anotacao_titulo').value,
+                conteudo: document.getElementById('anotacao_conteudo').value,
+                prioridade: document.getElementById('anotacao_prioridade').value
+            };
+
+            const result = await fazerRequisicao('/anotacoes', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+
+            if (result.sucesso) {
+                e.target.reset();
+                carregarAnotacoes();
+            }
+        }
+
+        async function carregarAnotacoes() {
+            const result = await fazerRequisicao('/anotacoes');
+            const container = document.getElementById('listAnotacoes');
+            container.innerHTML = '';
+
+            if (result.length === 0) {
+                container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #9ca3af;">Nenhuma anotação criada</div>';
+                return;
+            }
+
+            result.forEach(a => {
+                const div = document.createElement('div');
+                div.className = 'card';
+                div.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div>
+                            <h3 style="margin-bottom: 5px; color: var(--dark);">${a.titulo}</h3>
+                            <span class="badge ${a.prioridade === 'alta' ? 'alta' : a.prioridade === 'normal' ? 'media' : 'baixa'}">${a.prioridade}</span>
+                        </div>
+                        <button class="btn-sm danger" onclick="deletarAnotacao('${a.id}')" style="padding: 5px 10px;">🗑️</button>
+                    </div>
+                    <p style="margin-top: 15px; color: #6b7280; line-height: 1.6;">${a.conteudo || 'Sem conteúdo'}</p>
+                    <button class="btn-sm ${a.concluida ? 'danger' : 'success'}" onclick="toggleAnotacao('${a.id}', ${a.concluida})" style="margin-top: 15px;">
+                        ${a.concluida ? '↺ Desfazer' : '✓ Concluir'}
+                    </button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        async function toggleAnotacao(id, concluida) {
+            const result = await fazerRequisicao(`/anotacoes/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ concluida: concluida ? 0 : 1 })
+            });
+            if (result.sucesso) carregarAnotacoes();
+        }
+
+        async function deletarAnotacao(id) {
+            const result = await fazerRequisicao(`/anotacoes/${id}`, { method: 'DELETE' });
+            if (result.sucesso) carregarAnotacoes();
+        }
+
+        // ===== ESTOQUE =====
+        async function adicionarEstoque(e) {
+            e.preventDefault();
+
+            const dados = {
+                nome: document.getElementById('estoque_nome').value,
+                categoria: document.getElementById('estoque_categoria').value,
+                quantidade: parseInt(document.getElementById('estoque_quantidade').value),
+                preco_unitario: parseFloat(document.getElementById('estoque_preco').value) || 0,
+                fornecedor: document.getElementById('estoque_fornecedor').value,
+                nivel_minimo: parseInt(document.getElementById('estoque_minimo').value) || 5,
+                localizacao: document.getElementById('estoque_localizacao').value
+            };
+
+            const result = await fazerRequisicao('/estoque', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+
+            if (result.sucesso) {
+                e.target.reset();
+                carregarEstoque();
             }
         }
 
         async function carregarEstoque() {
-            try {
-                const resp = await fetch(`${API_URL}/estoque`);
-                const itens = await resp.json();
+            const result = await fazerRequisicao('/estoque');
+            const tbody = document.getElementById('tabelaEstoque');
+            tbody.innerHTML = '';
 
-                const tbody = document.querySelector('#tabelaEstoque tbody');
-                tbody.innerHTML = '';
-
-                itens.forEach(item => {
-                    const bgcolor = item.quantidade <= item.nivel_minimo ? '#ffe0e0' : '';
-                    const tr = document.createElement('tr');
-                    tr.style.backgroundColor = bgcolor;
-                    tr.innerHTML = `
-                        <td>${item.nome}</td>
-                        <td>${item.categoria || '-'}</td>
-                        <td>${item.quantidade}</td>
-                        <td>R$ ${formatarMoeda(item.preco_unitario)}</td>
-                        <td>${item.fornecedor || '-'}</td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn-small danger" onclick="deletarEstoque('${item.id}')">🗑️ Deletar</button>
-                            </div>
-                        </td>
-                    `;
-                    tbody.appendChild(tr);
-                });
-            } catch (err) {
-                mostrarAlerta('alertaEstoque', 'Erro ao carregar estoque', 'erro');
+            if (result.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 40px;">Nenhum item no estoque</td></tr>';
+                return;
             }
-        }
 
-        // ===== FORMULÁRIOS =====
-        document.getElementById('formCliente').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            try {
-                const resp = await fetch(`${API_URL}/clientes`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        nome: document.getElementById('cliente_nome').value,
-                        email: document.getElementById('cliente_email').value,
-                        telefone: document.getElementById('cliente_telefone').value,
-                        empresa: document.getElementById('cliente_empresa').value,
-                        endereco: document.getElementById('cliente_endereco').value
-                    })
-                });
-                const data = await resp.json();
-                if (data.sucesso) {
-                    mostrarAlerta('alertaCliente', '✅ Cliente cadastrado com sucesso!', 'sucesso');
-                    e.target.reset();
-                    carregarClientes();
-                }
-            } catch (err) {
-                mostrarAlerta('alertaCliente', '❌ Erro ao cadastrar cliente', 'erro');
-            }
-        });
-
-        document.getElementById('formChamado').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            try {
-                const resp = await fetch(`${API_URL}/chamados`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        cliente_id: document.getElementById('chamado_cliente').value,
-                        titulo: document.getElementById('chamado_titulo').value,
-                        descricao: document.getElementById('chamado_descricao').value,
-                        prioridade: document.getElementById('chamado_prioridade').value,
-                        tecnico: 'Você'
-                    })
-                });
-                const data = await resp.json();
-                if (data.sucesso) {
-                    mostrarAlerta('alertaChamado', '✅ Chamado aberto com sucesso!', 'sucesso');
-                    e.target.reset();
-                    carregarChamados();
-                }
-            } catch (err) {
-                mostrarAlerta('alertaChamado', '❌ Erro ao abrir chamado', 'erro');
-            }
-        });
-
-        document.getElementById('formAgendamento').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            try {
-                const resp = await fetch(`${API_URL}/agendamentos`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        cliente_id: document.getElementById('agenda_cliente').value,
-                        servico_id: document.getElementById('agenda_servico').value || null,
-                        data_agendada: document.getElementById('agenda_data').value,
-                        hora: document.getElementById('agenda_hora').value,
-                        notas: document.getElementById('agenda_notas').value
-                    })
-                });
-                const data = await resp.json();
-                if (data.sucesso) {
-                    mostrarAlerta('alertaAgenda', '✅ Agendamento realizado!', 'sucesso');
-                    e.target.reset();
-                    carregarAgendamentos();
-                }
-            } catch (err) {
-                mostrarAlerta('alertaAgenda', '❌ Erro ao agendar', 'erro');
-            }
-        });
-
-        document.getElementById('formServico').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            try {
-                const resp = await fetch(`${API_URL}/servicos`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        nome: document.getElementById('servico_nome').value,
-                        categoria: document.getElementById('servico_categoria').value,
-                        preco: parseFloat(document.getElementById('servico_preco').value) || 0,
-                        tempo_medio: parseInt(document.getElementById('servico_tempo').value) || 0,
-                        descricao: document.getElementById('servico_descricao').value
-                    })
-                });
-                const data = await resp.json();
-                if (data.sucesso) {
-                    mostrarAlerta('alertaServico', '✅ Serviço cadastrado!', 'sucesso');
-                    e.target.reset();
-                    carregarServicos();
-                }
-            } catch (err) {
-                mostrarAlerta('alertaServico', '❌ Erro ao cadastrar serviço', 'erro');
-            }
-        });
-
-        document.getElementById('formPagamento').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            try {
-                const resp = await fetch(`${API_URL}/pagamentos`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        cliente_id: document.getElementById('pagto_cliente').value,
-                        valor: parseFloat(document.getElementById('pagto_valor').value),
-                        metodo: document.getElementById('pagto_metodo').value,
-                        descricao: document.getElementById('pagto_descricao').value
-                    })
-                });
-                const data = await resp.json();
-                if (data.sucesso) {
-                    mostrarAlerta('alertaPagto', '✅ Pagamento registrado!', 'sucesso');
-                    e.target.reset();
-                    carregarPagamentos();
-                    carregarDashboard();
-                }
-            } catch (err) {
-                mostrarAlerta('alertaPagto', '❌ Erro ao registrar pagamento', 'erro');
-            }
-        });
-
-        document.getElementById('formManutencao').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            try {
-                const resp = await fetch(`${API_URL}/manutencoes`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        cliente_id: document.getElementById('manut_cliente').value,
-                        tipo: document.getElementById('manut_tipo').value,
-                        data_agendada: document.getElementById('manut_data').value,
-                        frequencia: document.getElementById('manut_frequencia').value,
-                        checklist: document.getElementById('manut_checklist').value
-                    })
-                });
-                const data = await resp.json();
-                if (data.sucesso) {
-                    mostrarAlerta('alertaManut', '✅ Manutenção agendada!', 'sucesso');
-                    e.target.reset();
-                    carregarManutencoes();
-                }
-            } catch (err) {
-                mostrarAlerta('alertaManut', '❌ Erro ao agendar manutenção', 'erro');
-            }
-        });
-
-        document.getElementById('formEstoque').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            try {
-                const resp = await fetch(`${API_URL}/estoque`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        nome: document.getElementById('estoque_nome').value,
-                        categoria: document.getElementById('estoque_categoria').value,
-                        quantidade: parseInt(document.getElementById('estoque_quantidade').value),
-                        preco_unitario: parseFloat(document.getElementById('estoque_preco').value) || 0,
-                        fornecedor: document.getElementById('estoque_fornecedor').value,
-                        nivel_minimo: parseInt(document.getElementById('estoque_minimo').value) || 5
-                    })
-                });
-                const data = await resp.json();
-                if (data.sucesso) {
-                    mostrarAlerta('alertaEstoque', '✅ Item adicionado ao estoque!', 'sucesso');
-                    e.target.reset();
-                    carregarEstoque();
-                }
-            } catch (err) {
-                mostrarAlerta('alertaEstoque', '❌ Erro ao adicionar item', 'erro');
-            }
-        });
-
-        // ===== FUNÇÕES DE AÇÃO =====
-        async function deletarCliente(id) {
-            if (!confirm('Deseja realmente deletar este cliente?')) return;
-            try {
-                await fetch(`${API_URL}/clientes/${id}`, { method: 'DELETE' });
-                mostrarAlerta('alertaCliente', '✅ Cliente deletado!', 'sucesso');
-                carregarClientes();
-            } catch (err) {
-                mostrarAlerta('alertaCliente', '❌ Erro ao deletar', 'erro');
-            }
-        }
-
-        async function deletarServico(id) {
-            if (!confirm('Deseja deletar este serviço?')) return;
-            alert('Função deletarServico não implementada no backend');
+            result.forEach(item => {
+                const status = item.quantidade <= item.nivel_minimo ? 'alta' : 'baixa';
+                const tr = document.createElement('tr');
+                tr.style.backgroundColor = status === 'alta' ? '#fee2e2' : 'transparent';
+                tr.innerHTML = `
+                    <td><strong>${item.nome}</strong></td>
+                    <td>${item.categoria || '-'}</td>
+                    <td>
+                        <span style="background: ${status === 'alta' ? '#fee2e2' : '#d1fae5'}; padding: 5px 10px; border-radius: 5px;">
+                            ${item.quantidade}
+                        </span>
+                    </td>
+                    <td>R$ ${formatarMoeda(item.preco_unitario)}</td>
+                    <td>${item.localizacao || '-'}</td>
+                    <td><span class="badge ${status === 'alta' ? 'alta' : 'baixa'}">${status === 'alta' ? 'BAIXO' : 'OK'}</span></td>
+                    <td>
+                        <button class="btn-sm danger" onclick="deletarEstoque('${item.id}')">🗑️</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
         }
 
         async function deletarEstoque(id) {
-            if (!confirm('Deseja deletar este item?')) return;
-            alert('Função deletarEstoque não implementada no backend');
+            if (!confirm('Deletar este item?')) return;
+            const result = await fazerRequisicao(`/estoque/${id}`, { method: 'DELETE' });
+            if (result.sucesso) carregarEstoque();
         }
 
-        async function atualizarStatusPagamento(id) {
-            try {
-                await fetch(`${API_URL}/pagamentos/${id}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ status: 'pago' })
-                });
-                mostrarAlerta('alertaPagto', '✅ Pagamento atualizado!', 'sucesso');
-                carregarPagamentos();
-                carregarDashboard();
-            } catch (err) {
-                mostrarAlerta('alertaPagto', '❌ Erro ao atualizar', 'erro');
-            }
-        }
-
-        async function marcarExecutado(id) {
-            alert('Função marcarExecutado não implementada');
-        }
-
-        function editarCliente(id) {
-            alert('Função editar não implementada');
-        }
-
-        function editarChamado(id) {
-            alert('Função editar não implementada');
-        }
-
-        function editarAgendamento(id) {
-            alert('Função editar não implementada');
+        // ===== DASHBOARD =====
+        async function carregarDashboard() {
+            const result = await fazerRequisicao('/dashboard');
+            document.getElementById('totalClientes').textContent = result.totalClientes || 0;
+            document.getElementById('chamadosAbertos').textContent = result.chamadosAbertos || 0;
+            document.getElementById('agendamentosProximos').textContent = result.agendamentosProximos || 0;
+            document.getElementById('pagamentosPendentes').textContent = 'R$ ' + formatarMoeda(result.pagamentosPendentes || 0);
+            document.getElementById('receitaTotal').textContent = 'R$ ' + formatarMoeda(result.receitaTotal || 0);
         }
 
         // ===== UTILITÁRIOS =====
         function formatarMoeda(valor) {
-            return parseFloat(valor).toFixed(2).replace('.', ',');
+            return parseFloat(valor || 0).toFixed(2).replace('.', ',');
         }
 
         function formatarData(data) {
             return new Date(data).toLocaleDateString('pt-BR');
         }
 
-        // ===== EVENT LISTENERS =====
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                trocarSecao(e.target.dataset.secao);
-            });
-        });
-
         // ===== INICIALIZAÇÃO =====
         window.addEventListener('load', () => {
-            carregarDashboard();
-            carregarClientes();
-            setInterval(carregarDashboard, 30000); // Atualizar a cada 30s
+            token = localStorage.getItem('token');
+            const usuario = localStorage.getItem('usuario');
+
+            if (token && usuario) {
+                usuarioAtual = JSON.parse(usuario);
+                mostrarApp();
+                carregarDashboard();
+                carregarClientes();
+                setInterval(carregarDashboard, 60000);
+            }
         });
     </script>
 </body>
